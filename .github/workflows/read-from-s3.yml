@@ -27,3 +27,4 @@ jobs:
       - name: Copy file from Bucket
         run: |
           aws s3 cp s3://${{ inputs.bucket-name }}/filler.txt . 
+          cat filler.txt
