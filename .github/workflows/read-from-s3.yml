@@ -1,0 +1,26 @@
+on:
+  workflow_call:
+    inputs:
+      aws-account:
+        description: 'AWS Account'
+        required: true
+      region:
+        description: 'AWS Region'
+        required: true
+      bucket-name:
+        description: 'The name of the s3 bucket'
+        required: true
+  
+jobs:
+  read-from-s3:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ inputs.aws-account }}:role/test_role-read
+          aws-region: ${{ inputs.region }}
+      
+      - name: Copy file from Bucket
+        shell: bash
+        run: aws s3 cp s3://${{ inputs.bucket-name }}/filler.txt . 
