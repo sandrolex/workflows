@@ -22,5 +22,5 @@ jobs:
           aws-region: ${{ inputs.region }}
       
       - name: Copy file from Bucket
-        shell: bash
-        run: aws s3 cp s3://${{ inputs.bucket-name }}/filler.txt . 
+        run: |
+          aws s3 cp s3://${{ inputs.bucket-name }}/filler.txt . 
